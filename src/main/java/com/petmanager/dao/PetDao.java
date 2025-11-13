@@ -1,0 +1,38 @@
+package com.petmanager.dao;
+
+import com.petmanager.entity.PetEntity;
+import org.springframework.stereotype.Repository;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
+
+@Repository
+public class PetDao implements GenericDao<PetEntity, Long>{
+    private static final ConcurrentHashMap<Long, PetEntity> allPets = new ConcurrentHashMap<>();
+    private static final AtomicLong lastId = new AtomicLong(0);
+
+    @Override
+    public PetEntity save(PetEntity entity) {
+        if (entity.getId() == null) {
+            entity.setId(lastId.incrementAndGet());
+        }
+        allPets.put(entity.getId(), entity);
+        return entity;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        allPets.remove(id);
+    }
+
+    @Override
+    public Optional<PetEntity> findById(Long id) {
+        return Optional.ofNullable(allPets.get(id));
+    }
+
+    @Override
+    public List<PetEntity> findAll() {
+        return new ArrayList<>(allPets.values());
+    }
+}
