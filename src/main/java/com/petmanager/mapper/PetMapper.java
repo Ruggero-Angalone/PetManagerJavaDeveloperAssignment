@@ -1,4 +1,4 @@
-package mapper;
+package com.petmanager.mapper;
 
 import com.petmanager.dto.request.PetRequest;
 import com.petmanager.dto.response.PetResponse;
@@ -11,7 +11,7 @@ public class PetMapper {
         entity.setName(request.getName());
         entity.setSpecies(request.getSpecies());
         entity.setAge(request.getAge());
-        entity.setOwnerName(request.getOwnerName()); // required by your schema
+        entity.setOwnerName(request.getOwnerName());
         return entity;
     }
 

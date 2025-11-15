@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static com.petmanager.enums.Species.CAT;
 import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 public class PetDaoTest {
 
@@ -40,13 +40,14 @@ public class PetDaoTest {
             throw new RuntimeException("Failed to clear PetDao static fields", e);
         }
     }
+
     @Test
     public void testSaveAndFindById() {
         PetEntity pet = new PetEntity();
         pet.setName("Fluffy");
-        pet.setSpecies("Cat");
+        pet.setSpecies(CAT);
         pet.setAge(3);
-        pet.setOwnerName("Alice");
+        pet.setOwnerName("Alice"); // still present
 
         PetEntity saved = petDao.save(pet);
         assertNotNull(saved.getId());
@@ -54,6 +55,8 @@ public class PetDaoTest {
         Optional<PetEntity> found = petDao.findById(saved.getId());
         assertTrue(found.isPresent());
         assertEquals("Fluffy", found.get().getName());
+        assertEquals(CAT, found.get().getSpecies());
+        assertEquals(3, found.get().getAge());
         assertEquals("Alice", found.get().getOwnerName());
     }
 
@@ -61,6 +64,7 @@ public class PetDaoTest {
     public void testDeleteById() {
         PetEntity pet = new PetEntity();
         pet.setName("Rex");
+        pet.setOwnerName("Bob"); // still present
         PetEntity saved = petDao.save(pet);
 
         petDao.deleteById(saved.getId());
@@ -71,8 +75,10 @@ public class PetDaoTest {
     public void testFindAll() {
         PetEntity pet1 = new PetEntity();
         pet1.setName("Pet1");
+        pet1.setOwnerName("Owner1");
         PetEntity pet2 = new PetEntity();
         pet2.setName("Pet2");
+        pet2.setOwnerName("Owner2");
 
         petDao.save(pet1);
         petDao.save(pet2);

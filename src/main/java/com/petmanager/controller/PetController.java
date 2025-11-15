@@ -1,11 +1,11 @@
 package com.petmanager.controller;
 
-import com.petmanager.dto.request.PetAndOwnerRequest;
 import com.petmanager.dto.request.PetRequest;
-import com.petmanager.dto.response.PetAndOwnerResponse;
 import com.petmanager.dto.response.PetResponse;
-import com.petmanager.service.OwnerAndPetService;
+import com.petmanager.entity.PetEntity;
 import com.petmanager.service.PetService;
+import jakarta.validation.Valid;
+import com.petmanager.mapper.PetMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,26 +18,32 @@ public class PetController {
 
     @Autowired
     PetService petService;
-    @Autowired
-    OwnerAndPetService ownerAndPetService;
 
-    @PostMapping("addPet")
-    public ResponseEntity<PetResponse> addPet(@RequestBody PetRequest pet){
-        return ResponseEntity.ok(ownerAndPetService.addPet(pet));
+    @PostMapping("")
+    public ResponseEntity<PetResponse> save(@RequestBody @Valid PetRequest pet){
+        return ResponseEntity.ok(PetMapper.toResponse(petService.save(pet)));
     }
 
-    @PostMapping("addPetAndOwner")
-    public ResponseEntity<PetAndOwnerResponse> addPetAndOwner(@RequestBody PetAndOwnerRequest petOwner){
-        return ResponseEntity.ok(ownerAndPetService.addPetAndOwner(petOwner));
-    }
-
-    @DeleteMapping("removePet/{petId}")
+    @DeleteMapping("/{petId}")
     public ResponseEntity<Void> removePet(@PathVariable Long petId){
-        return ResponseEntity.ok(petService.removePet(petId));
+        petService.removePet(petId);
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("getAllPets")
+    @GetMapping("")
     public ResponseEntity<List<PetResponse>> getAllPets(){
         return ResponseEntity.ok(petService.getAllPets());
+    }
+    @GetMapping("/{petId}")
+    public ResponseEntity<PetResponse> getPetById(@PathVariable Long petId){
+        return ResponseEntity.ok(PetMapper.toResponse(petService.getPetById(petId)));
+    }
+
+    @PutMapping("/{petId}")
+    public ResponseEntity<PetResponse> updatePet(
+            @PathVariable Long petId,
+            @RequestBody @Valid PetRequest petRequest) {
+        PetEntity updatedPet = petService.updatePet(petId, petRequest);
+        return ResponseEntity.ok(PetMapper.toResponse(updatedPet));
     }
 }
