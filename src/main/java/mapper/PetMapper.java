@@ -3,7 +3,6 @@ package mapper;
 import com.petmanager.dto.request.PetRequest;
 import com.petmanager.dto.response.PetResponse;
 import com.petmanager.entity.PetEntity;
-import org.springframework.stereotype.Service;
 
 public class PetMapper {
 

@@ -2,7 +2,6 @@ package com.petmanager.controller;
 
 import com.petmanager.dto.request.OwnerRequest;
 import com.petmanager.dto.response.OwnerResponse;
-import com.petmanager.entity.PetEntity;
 import com.petmanager.service.OwnerAndPetService;
 import com.petmanager.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;

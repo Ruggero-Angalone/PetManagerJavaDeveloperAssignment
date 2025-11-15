@@ -3,7 +3,6 @@ package mapper;
 import com.petmanager.dto.request.OwnerRequest;
 import com.petmanager.dto.response.OwnerResponse;
 import com.petmanager.entity.OwnerEntity;
-import org.springframework.stereotype.Service;
 
 public class OwnerMapper {
 
