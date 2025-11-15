@@ -1,6 +1,7 @@
 package com.petmanager.service;
 
 import com.petmanager.dao.OwnerDao;
+import com.petmanager.dao.OwnerDaoInterface;
 import com.petmanager.dto.request.OwnerRequest;
 import com.petmanager.dto.response.OwnerResponse;
 import com.petmanager.entity.OwnerEntity;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class OwnerService {
 
     @Autowired
-    private OwnerDao ownerDao;
+    private OwnerDaoInterface ownerDao;
 
     public OwnerResponse addOwner(OwnerRequest ownerRequest) {
         List<OwnerEntity> existingOwners = ownerDao.findByName(ownerRequest.getOwnerName());
@@ -48,8 +49,8 @@ public class OwnerService {
         return ownerDao.findById(id);
     }
 
-    public void deleteById(Long id){
-        ownerDao.deleteById(id);
+    public Boolean deleteById(Long id){
+        return ownerDao.deleteById(id);
     }
 
 }

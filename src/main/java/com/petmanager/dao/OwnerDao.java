@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
-public class OwnerDao implements GenericDao<OwnerEntity, Long> {
+public class OwnerDao implements OwnerDaoInterface {
 
     private static final Map<Long, OwnerEntity> allOwners = new ConcurrentHashMap<>();
     private static final AtomicLong lastId = new AtomicLong(0);
@@ -27,8 +27,8 @@ public class OwnerDao implements GenericDao<OwnerEntity, Long> {
     }
 
     @Override
-    public void deleteById(Long id) {
-        allOwners.remove(id);
+    public Boolean deleteById(Long id) {
+        return allOwners.remove(id) != null;
     }
 
     @Override

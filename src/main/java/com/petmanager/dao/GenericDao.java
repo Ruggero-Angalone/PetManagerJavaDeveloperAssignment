@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface GenericDao<T, ID> {
     T save(T entity);
-    void deleteById(ID id);
+    Boolean deleteById(ID id);
     Optional<T> findById(ID id);
     List<T> findAll();
 }

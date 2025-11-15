@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class PetDao implements GenericDao<PetEntity, Long>{
+public class PetDao implements PetDaoInterface{
     private static final ConcurrentHashMap<Long, PetEntity> allPets = new ConcurrentHashMap<>();
     private static final AtomicLong lastId = new AtomicLong(0);
 
@@ -24,8 +24,8 @@ public class PetDao implements GenericDao<PetEntity, Long>{
     }
 
     @Override
-    public void deleteById(Long id) {
-        allPets.remove(id);
+    public Boolean deleteById(Long id) {
+        return allPets.remove(id) != null;
     }
 
     @Override

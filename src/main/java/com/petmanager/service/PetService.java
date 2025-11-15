@@ -1,6 +1,6 @@
 package com.petmanager.service;
 
-import com.petmanager.dao.PetDao;
+import com.petmanager.dao.PetDaoInterface;
 import com.petmanager.dto.response.PetResponse;
 import com.petmanager.entity.PetEntity;
 import mapper.PetMapper;
@@ -14,7 +14,7 @@ import java.util.List;
 public class PetService {
 
     @Autowired
-    private PetDao petDao;
+    private PetDaoInterface petDao;
 
     public PetEntity save(PetEntity pet){
         return petDao.save(pet);
