@@ -1,13 +1,11 @@
-package com.petmanager.entity;
+package com.petmanager.dto.response;
 
 import lombok.Data;
 
 @Data
-public class PetOwnerEntity {
+public class OwnerResponse {
     private Long ownerId;
     private String ownerName;
-    private String name;
-    private String surname;
     private String phoneNumber;
     private String address;
 }
