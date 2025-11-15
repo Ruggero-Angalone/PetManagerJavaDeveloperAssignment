@@ -22,7 +22,8 @@ The application must manage a Pet entity with the following properties:
 - age (Integer, optional, must be greater than or equal to 0)
 - ownerName (String, optional)
 The application must provide a set of REST APIs for accessing the Pet entity.
-Additional Considerations 
+
+# Additional Considerations 
 
 The code should be well-structured and readable.
 
